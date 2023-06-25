@@ -3,7 +3,12 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 def send_request():
+    ''' Membuka port di port 45000 dengan transport TCP '''
     server_address = ('0.0.0.0', 45000)
+    '''
+    Request ke server hanya dilayani dengan ketentuan:
+    Diawali dengan string “TIME dan diakhiri dengan karakter 13 dan karakter 10”
+    '''
     request = "TIME\r\n"
 
     # Create a TCP/IP socket

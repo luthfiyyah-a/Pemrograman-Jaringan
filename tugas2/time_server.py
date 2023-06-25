@@ -14,7 +14,7 @@ class ProcessTheClient(threading.Thread):
         while True:
             data = self.connection.recv(32).decode('utf-8')
             '''
-            Request hanya dilayani dengan ketentuan 
+            Request hanya dilayani dengan ketentuan:
             Diawali dengan string “TIME dan diakhiri dengan karakter 13 dan karakter 10”
             '''
             if data.startswith('TIME') and data.endswith('\r\n'):
