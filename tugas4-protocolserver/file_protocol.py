@@ -27,15 +27,15 @@ class FileProtocol:
         try:
             c_request = c[0].strip()
             logging.warning(f"memproses request: {c_request}")
-            params = [x for x in c[1:]]
             
             if c_request == 'upload':
-                c1 = getattr(self.file,'upload')(*params)
+                params = [c[1], ' '.join(c[2:])]
             elif c_request == 'delete':
-                c1 = getattr(self.file,c_request)(*params)
+                params = [x for x in c[1:]]
             else:
-                print("protocol nya mana nich")
-                cl = getattr(self.file,c_request)(params)
+                params = [x for x in c[1:]]
+                
+            cl = getattr(self.file,c_request)(params)
             
             return json.dumps(cl)
         except Exception:

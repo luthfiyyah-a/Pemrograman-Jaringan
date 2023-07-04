@@ -64,15 +64,19 @@ def remote_get(filename=""):
         return False
 
 def remote_upload(filename="", file_content=""):
-    with open(filename, 'rb') as file:
-        file_content_base64 = base64.b64encode(file.read()).decode()
-    command_str=f"UPLOAD {filename} {file_content_base64}"
-    hasil = send_command(command_str)
-    if (hasil['status']=='OK'):
-        print("File berhasil diunggah")
-        return True
-    else:
-        print("Gagal mengunggah file")
+    try:
+        with open(filename, 'rb') as file:
+            file_content_base64 = base64.b64encode(file.read()).decode()
+        command_str=f"UPLOAD {filename} {file_content_base64}"
+        hasil = send_command(command_str)
+        if hasil['status'] == 'OK':
+            print("File berhasil diunggah")
+            return True
+        else:
+            print("Gagal mengunggah file")
+            return False
+    except FileNotFoundError:
+        print(f"File {filename} tidak ditemukan")
         return False
 
 def remote_delete(filename=""):
@@ -84,11 +88,12 @@ def remote_delete(filename=""):
     else:
         print("Gagal menghapus file")
         return False
-    
+
     
 if __name__=='__main__':
     server_address=('172.16.16.101',6666)
     remote_list()
     # remote_get('progjar_env(1).png')
-    remote_upload('progjar_env(1).png')
+    # remote_upload('alhamdulillah.txt')
+    remote_delete("progjar_env(1).png")
 

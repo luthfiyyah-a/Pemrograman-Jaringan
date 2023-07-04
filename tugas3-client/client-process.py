@@ -1,5 +1,10 @@
 import socket
 import multiprocessing
+import socket
+import threading
+import sys
+import time
+
 
 
 def send_request():
@@ -29,7 +34,19 @@ def send_request():
         # CLose the socket
         sock.close()
 
-# Create multiple processes to send requests concurrently
-for i in range(100000):
-    process = multiprocessing.Process(target=send_request)
-    process.start()
+# # Create multiple processes to send requests concurrently
+# for i in range(100000):
+#     process = multiprocessing.Process(target=send_request)
+#     process.start()
+
+if __name__ == "__main__":
+#     menguji jumlah thread maksimum
+    process_count = 0
+    start_time = time.time()
+    
+#     looping selama 30 detik untuk membuat thread
+    while time.time() - start_time < 30:
+        process = multiprocessing.Process(target=send_request)
+        process.start()
+        process_count += 1
+    logging.warning(f"Total thread created: {process_count}")

@@ -26,19 +26,34 @@ class FileInterface:
         except Exception as e:
             return dict(status='ERROR',data=str(e))
 
+#     def upload(self, params=[]):
+#         try:
+#             print("hai")
+#             filename = params[0]
+#             file_content_base64= params[1]
+#             file_content = base64.b64decode(file_content_base64)
+#             with open(filename, 'wb') as file:
+#                 file.write(file_content)
+#                 print("hmmdebug")
+#             return dict(status='OK', data='File uploaded successfully')
+#         except Exception as e:
+#             print("halah eror astaghfirullah")
+#             return dict(status='ERROR', data=str(e))
+    
+    
     def upload(self, params=[]):
         try:
-            print("hai")
             filename = params[0]
-            file_content_base64= params[1]
-            file_content = base64.b64decode(file_content_base64)
+            file_content = base64.b64decode(params[1].encode())
+            print("ya allah")
             with open(filename, 'wb') as file:
+                print("hasbiyallah")
                 file.write(file_content)
-                print("hmmdebug")
             return dict(status='OK', data='File uploaded successfully')
         except Exception as e:
-            print("halah eror astaghfirullah")
+            print("eror astaghfirullah")
             return dict(status='ERROR', data=str(e))
+
     
     def delete(self, params=[]):
         try:

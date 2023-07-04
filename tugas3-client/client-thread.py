@@ -1,5 +1,7 @@
 import socket
 import threading
+import time
+import logging
 
 
 def send_request():
@@ -27,9 +29,23 @@ def send_request():
 
     finally:
         # Close the socket
-        sock.close
+        sock.close()
 
 # Create multiple threads to send requests concurrently
-for i in range(100):
-    thread = threading.Thread(target=send_request)
-    thread.start()
+# for i in range(100):
+#     thread = threading.Thread(target=send_request)
+#     thread.start()
+
+if __name__ == "__main__":
+    
+#     menguji jumlah thread maksimum
+    thread_count = 0
+    start_time = time.time()
+    
+#     looping selama 30 detik untuk membuat thread
+    while time.time() - start_time < 30:
+        thread = threading.Thread(target=send_request)
+        thread.start()
+        thread_count += 1
+    logging.warning(f"Total thread created: {thread_count}")
+    

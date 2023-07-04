@@ -1,5 +1,6 @@
 import socket
 from concurrent.futures import ThreadPoolExecutor
+import time
 
 
 def send_request():
@@ -34,3 +35,14 @@ with ThreadPoolExecutor(max_workers=5) as executor:
     for i in range(100000):
         # print("send request...")
         executor.submit(send_request)
+        
+if __name__ == "__main__":
+    with ThreadPoolExecutor() as executor:
+        start_time = time.time()
+        request_count = 0
+        
+        while time.time() - start_time < 30: # looping selama 30 detik
+            executor.submit(send_request)
+            request_count += 1
+            
+        logging.warning(f"Total request sent: {request_count}")
