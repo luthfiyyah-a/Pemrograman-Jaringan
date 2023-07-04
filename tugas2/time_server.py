@@ -38,6 +38,7 @@ class Server(threading.Thread):
         # Create a TCP/IP socket -> using param socket.SOCK_STREAM
         self.my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         threading.Thread.__init__(self)
+        self.counter = 0
 
     def run(self):
         ''' Membuka port di port 45000 dengan transport TCP '''
@@ -54,6 +55,12 @@ class Server(threading.Thread):
                 clt = ProcessTheClient(self.connection, self.client_address)
                 clt.start()
                 self.the_clients.append(clt)
+                
+                self.counter += 1  # Tambahkan counter setiap kali request selesai
+
+                # Cetak jumlah request yang telah dijawab
+                print(f"Jumlah request yang telah dijawab: {self.counter}")
+
         
 def main():
     svr = Server()
